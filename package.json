@@ -1,5 +1,11 @@
 {
-  "devDependencies": {
-    "@biomejs/biome": "1.7.3"
-  }
+    "name": "todo-app",
+    "description": "Repo for a todo-list application",
+    "type": "module",
+    "scripts": {
+        "format": "npx @biomejs/biome format --write ."
+    },
+    "devDependencies": {
+        "@biomejs/biome": "1.7.3"
+    }
 }
