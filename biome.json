@@ -4,11 +4,11 @@
         "enabled": true
     },
 
-            "formatter": {
+    "formatter": {
         "enabled": true,
-                "indentStyle": "space",
+        "indentStyle": "space",
         "indentWidth": 4,
-                    "lineWidth": 120
+        "lineWidth": 120
     },
 
     "linter": {
