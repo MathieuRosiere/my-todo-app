@@ -3,7 +3,9 @@
     "description": "Repo for a todo-list application",
     "type": "module",
     "scripts": {
-        "format": "npx @biomejs/biome format --write ."
+        "format": "npx @biomejs/biome check .",
+        "format:fix": "npx @biomejs/biome format --write .",
+        "prepare": "husky"
     },
     "devDependencies": {
         "@biomejs/biome": "1.7.3",
