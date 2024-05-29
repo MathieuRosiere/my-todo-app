@@ -1,7 +1,3 @@
 {
-    "recommendations": [
-        "biomejs.biome",
-        "nuxtr.nuxtr-vscode",
-        "editorconfig.editorconfig"
-    ]
+    "recommendations": ["biomejs.biome", "nuxtr.nuxtr-vscode", "editorconfig.editorconfig"]
 }
