@@ -3,8 +3,8 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "format": "prettier . check",
-        "format:fix": "prettier . --write",
+        "format": "prettier --check .",
+        "format:fix": "prettier --write .",
         "lint": "npx eslint",
         "lint:fix": "npx eslint --fix",
         "prepare": "husky",
@@ -15,7 +15,7 @@
         "postinstall": "nuxt prepare"
     },
     "lint-staged": {
-        "*": "prettier . --write",
+        "*": "prettier --write .",
         "*{js,vue}": "npx eslint --fix"
     },
     "dependencies": {
