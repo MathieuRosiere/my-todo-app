@@ -5,12 +5,18 @@
     "scripts": {
         "format": "npx @biomejs/biome check .",
         "format:fix": "npx @biomejs/biome format --write .",
+        "lint": "npx eslint",
+        "lint:fix": "npx eslint --fix",
         "prepare": "husky",
         "build": "nuxt build",
         "dev": "nuxt dev",
         "generate": "nuxt generate",
         "preview": "nuxt preview",
         "postinstall": "nuxt prepare"
+    },
+    "lint-staged": {
+        "*": "npx @biomejs/biome format --write .",
+        "*{js,vue}": "npx eslint --fix"
     },
     "dependencies": {
         "nuxt": "3.11.2",
@@ -23,6 +29,7 @@
         "eslint": "9.3.0",
         "eslint-plugin-vue": "9.26.0",
         "globals": "15.3.0",
-        "husky": "9.0.11"
+        "husky": "9.0.11",
+        "lint-staged": "15.2.5"
     }
 }
