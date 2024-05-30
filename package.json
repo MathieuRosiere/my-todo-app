@@ -3,8 +3,8 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "format": "npx @biomejs/biome check .",
-        "format:fix": "npx @biomejs/biome format --write .",
+        "format": "prettier --check .",
+        "format:fix": "prettier --write .",
         "lint": "npx eslint",
         "lint:fix": "npx eslint --fix",
         "prepare": "husky",
@@ -15,7 +15,7 @@
         "postinstall": "nuxt prepare"
     },
     "lint-staged": {
-        "*": "npx @biomejs/biome format --write .",
+        "*": "prettier --write .",
         "*{js,vue}": "npx eslint --fix"
     },
     "dependencies": {
@@ -24,12 +24,12 @@
         "vue-router": "4.3.2"
     },
     "devDependencies": {
-        "@biomejs/biome": "1.7.3",
         "@eslint/js": "9.3.0",
         "eslint": "9.3.0",
         "eslint-plugin-vue": "9.26.0",
         "globals": "15.3.0",
         "husky": "9.0.11",
-        "lint-staged": "15.2.5"
+        "lint-staged": "15.2.5",
+        "prettier": "3.2.5"
     }
 }
