@@ -13,12 +13,12 @@
         "postinstall": "nuxt prepare"
     },
     "dependencies": {
-        "nuxt": "^3.11.2",
-        "vue": "^3.4.27",
-        "vue-router": "^4.3.2"
+        "nuxt": "3.11.2",
+        "vue": "3.4.27",
+        "vue-router": "4.3.2"
     },
     "devDependencies": {
         "@biomejs/biome": "1.7.3",
-        "husky": "^9.0.11"
+        "husky": "9.0.11"
     }
 }
