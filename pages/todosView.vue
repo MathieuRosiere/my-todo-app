@@ -1,12 +1,24 @@
 <script setup>
+import { ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useUserStore } from "../stores/userStore";
 
 const userStore = useUserStore();
 const { todos } = storeToRefs(userStore);
 
+const newTodo = ref("");
+
 const submitHandler = () => {
     console.log("todo submitted");
+    newTodo.value = "";
+};
+
+const checkTodo = (todo) => {
+    console.log(`Todo '${todo}' checked`);
+};
+
+const deleteTodo = (todo) => {
+    console.log(`Todo '${todo}' deleted`);
 };
 </script>
 
@@ -18,15 +30,19 @@ const submitHandler = () => {
       @submit.prevent="submitHandler"
     >
       <input
-        id="todo"
+        id="newTodo"
+        v-model="newTodo"
+        class="input-field"
         type="text"
-        name="todo"
+        name="newTodo"
         placeholder="Ajouter une todo"
         required
       >
-      <button>Ajouter</button>
+      <button>
+        <ClientOnly><font-awesome-icon :icon="['fas', 'plus']" /></ClientOnly>
+      </button>
     </form>
-
+    <span class="count">À faire - {{ todos.length }} </span>
     <div
       v-for="todo in todos"
       :key="todo.id"
@@ -34,8 +50,20 @@ const submitHandler = () => {
       <div class="card">
         <span>{{ todo }}</span>
         <div class="card-icons">
-          <ClientOnly> <font-awesome-icon :icon="['fas', 'check']" /></ClientOnly>
-          <ClientOnly> <font-awesome-icon :icon="['far', 'trash-can']" /></ClientOnly>
+          <ClientOnly>
+            <font-awesome-icon
+              class="icons"
+              :icon="['fas', 'check']"
+              @click="checkTodo(todo)"
+            />
+          </ClientOnly>
+          <ClientOnly>
+            <font-awesome-icon
+              class="icons"
+              :icon="['far', 'trash-can']"
+              @click="deleteTodo(todo)"
+            />
+          </ClientOnly>
         </div>
       </div>
     </div>
@@ -45,12 +73,21 @@ const submitHandler = () => {
 <style>
 .container {
     width: 600px;
+    max-height: 750px;
     background-color: var(--main-bg);
     color: var(--card-font-color);
-    padding: 2rem;
+    padding: 2rem 4rem;
     border-radius: 1rem;
     display: flex;
     flex-flow: column nowrap;
+    overflow-y: scroll;
+    scrollbar-color: var(--card-font-color) var(--body-bg);
+    scrollbar-width: thin;
+
+    > span.count {
+        color: var(--main-font-color);
+        margin-bottom: 10px;
+    }
 }
 
 .add-form {
@@ -60,7 +97,20 @@ const submitHandler = () => {
     justify-content: space-between;
     margin-bottom: 3rem;
     > input {
-        width: 80%;
+        flex: 1;
+        margin-right: 1rem;
+        font-size: 1.1rem;
+    }
+    > button {
+        height: 2rem;
+        aspect-ratio: 1/1;
+        color: var(--main-font-color);
+        background-color: var(--card-font-color);
+        border: none;
+        border-radius: 20%;
+    }
+    > button:hover {
+        cursor: pointer;
     }
 }
 
@@ -73,8 +123,32 @@ const submitHandler = () => {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
+    align-items: center;
+    > span {
+        flex: 0.75;
+        overflow-x: hidden;
+    }
+    > div.card-icons {
+        flex: 0.25;
+    }
 }
 
 .card-icons {
+    display: flex;
+    justify-content: space-evenly;
+    > .icons {
+        height: 1.2rem;
+        transition: 350ms ease;
+    }
+    > .icons:hover {
+        cursor: pointer;
+        scale: 1.4;
+    }
+    > :first-child:hover {
+        color: var(--secondary-font-color);
+    }
+    > :last-child:hover {
+        color: red;
+    }
 }
 </style>

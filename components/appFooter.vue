@@ -3,10 +3,10 @@
     <NuxtLink to="/">
       Accueil
     </NuxtLink>
-    <NuxtLink to="/profile">
+    <NuxtLink to="/profileView">
       Profil
     </NuxtLink>
-    <NuxtLink to="/todos">
+    <NuxtLink to="/todosView">
       Todos
     </NuxtLink>
   </footer>
