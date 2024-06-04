@@ -5,8 +5,8 @@
     "scripts": {
         "format": "prettier --check .",
         "format:fix": "prettier --write .",
-        "lint": "npx eslint",
-        "lint:fix": "npx eslint --fix",
+        "lint": "eslint .",
+        "lint:fix": "eslint --fix .",
         "prepare": "husky",
         "build": "nuxt build",
         "dev": "nuxt dev",
@@ -16,7 +16,7 @@
     },
     "lint-staged": {
         "*": "prettier --write .",
-        "*{js,vue}": "npx eslint --fix"
+        "*{js,vue}": "eslint --fix ."
     },
     "dependencies": {
         "nuxt": "3.11.2",
@@ -25,8 +25,8 @@
     },
     "devDependencies": {
         "@eslint/js": "9.3.0",
+        "@nuxt/eslint": "0.3.13",
         "eslint": "9.3.0",
-        "eslint-plugin-vue": "9.26.0",
         "globals": "15.3.0",
         "husky": "9.0.11",
         "lint-staged": "15.2.5",
