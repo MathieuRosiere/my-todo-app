@@ -1,5 +1,5 @@
 <script setup>
-import ButtonSubmit from "./MyButton.vue";
+import MyButton from "./MyButton.vue";
 
 const submitHandler = () => {
     console.log("login form submitted");
@@ -39,7 +39,7 @@ const submitHandler = () => {
           required
         >
       </div>
-      <ButtonSubmit content="Valider" />
+      <MyButton content="Valider" />
     </form>
   </div>
 </template>

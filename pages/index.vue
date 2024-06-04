@@ -7,12 +7,21 @@ const { user } = storeToRefs(userStore);
 </script>
 
 <template>
-  <div v-if="user">
-    Bienvenue {{ user }}
+  <div class="index-wrapper">
+    <div v-if="user">
+      Bienvenue {{ user }}
+    </div>
+    <h3 v-else>
+      Accueil
+    </h3>
   </div>
-  <h3 v-else>
-    Accueil
-  </h3>
 </template>
 
-<style scoped></style>
+<style scoped>
+.index-wrapper {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+</style>

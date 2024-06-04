@@ -22,16 +22,17 @@ html {
 body {
     height: 100dvh;
     width: 100dvw;
-    display: flex;
-    flex-flow: column nowrap;
-    align-items: center;
     background-color: var(--body-bg);
     color: var(--main-font-color);
 }
 
 div#__nuxt {
     height: 100%;
-    width: 600px;
+    width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+    align-items: center;
 }
 
 /* FORMULAIRES */
@@ -43,6 +44,7 @@ div#__nuxt {
     border-radius: 1rem;
     display: flex;
     flex-flow: column nowrap;
+    justify-content: center;
 
     > h3 {
         margin-bottom: 1.5rem;

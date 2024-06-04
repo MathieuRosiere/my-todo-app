@@ -3,16 +3,18 @@ const props = defineProps({
     content: { type: String, default: "button" },
 });
 </script>
+
 <template>
-  <button class="btn">
+  <button
+    class="btn"
+    @click="$emit('emitEvent')"
+  >
     {{ props.content }}
   </button>
 </template>
 
 <style>
 .btn {
-    display: block;
-    margin-left: auto;
     background-color: var(--main-bg);
     color: var(--secondary-font-color);
     border: 1px solid var(--card-font-color);
