@@ -11,37 +11,19 @@ const switchForm = ref("");
 </script>
 
 <template>
-  <UserProfile v-if="user" />
-  <div
-    v-else
-    class="wrapper"
-  >
-    <div
-      v-if="switchForm === ''"
-      class="select-form"
-    >
-      <span>Pas encore de compte ?</span>
-      <MyButton
-        content="Inscivez-vous"
-        @emit-event="switchForm = 'signup'"
-      />
-      <span>Déjà un compte ?</span>
-      <MyButton
-        content="Connectez-vous"
-        @emit-event="switchForm = 'login'"
-      />
-    </div>
+    <UserProfile v-if="user" />
+    <div v-else class="wrapper">
+        <div v-if="switchForm === ''" class="select-form">
+            <span>Pas encore de compte ?</span>
+            <MyButton content="Inscivez-vous" @emit-event="switchForm = 'signup'" />
+            <span>Déjà un compte ?</span>
+            <MyButton content="Connectez-vous" @emit-event="switchForm = 'login'" />
+        </div>
 
-    <LoginForm v-if="switchForm === 'login'" />
-    <SignupForm v-if="switchForm === 'signup'" />
-    <button
-      v-if="switchForm !== ''"
-      class="btn-return"
-      @click="switchForm = ''"
-    >
-      Retour
-    </button>
-  </div>
+        <LoginForm v-if="switchForm === 'login'" />
+        <SignupForm v-if="switchForm === 'signup'" />
+        <button v-if="switchForm !== ''" class="btn-return" @click="switchForm = ''">Retour</button>
+    </div>
 </template>
 
 <style>

@@ -7,14 +7,10 @@ const { user } = storeToRefs(userStore);
 </script>
 
 <template>
-  <div class="index-wrapper">
-    <div v-if="user">
-      Bienvenue {{ user }}
+    <div class="index-wrapper">
+        <div v-if="user">Bienvenue {{ user }}</div>
+        <h3 v-else>Accueil</h3>
     </div>
-    <h3 v-else>
-      Accueil
-    </h3>
-  </div>
 </template>
 
 <style scoped>

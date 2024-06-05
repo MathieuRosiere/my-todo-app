@@ -1,9 +1,9 @@
 <template>
-  <appHeader class="appHeader grid-center" />
-  <main>
-    <NuxtPage />
-  </main>
-  <appFooter class="appFooter grid-center" />
+    <appHeader class="appHeader grid-center" />
+    <main>
+        <NuxtPage />
+    </main>
+    <appFooter class="appFooter grid-center" />
 </template>
 
 <style scoped>
@@ -15,7 +15,7 @@ main {
     height: 750px;
     background-color: var(--main-bg);
     color: var(--card-font-color);
-    padding: 2rem 4rem;
+    padding: 0 4rem;
     border-radius: 1rem;
     overflow-y: auto;
     scrollbar-color: var(--card-font-color) var(--body-bg);

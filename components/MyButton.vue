@@ -2,15 +2,17 @@
 const props = defineProps({
     content: { type: String, default: "button" },
 });
+const emits = defineEmits(["emitEvent"]);
+
+const btnClickHandler = () => {
+    emits("emitEvent");
+};
 </script>
 
 <template>
-  <button
-    class="btn"
-    @click="$emit('emitEvent')"
-  >
-    {{ props.content }}
-  </button>
+    <button class="btn" @click="btnClickHandler">
+        {{ props.content }}
+    </button>
 </template>
 
 <style>

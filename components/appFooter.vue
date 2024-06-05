@@ -1,15 +1,9 @@
 <template>
-  <footer>
-    <NuxtLink to="/">
-      Accueil
-    </NuxtLink>
-    <NuxtLink to="/profileView">
-      Profil
-    </NuxtLink>
-    <NuxtLink to="/todosView">
-      Todos
-    </NuxtLink>
-  </footer>
+    <footer>
+        <NuxtLink to="/"> Accueil </NuxtLink>
+        <NuxtLink to="/profileView"> Profil </NuxtLink>
+        <NuxtLink to="/todosView"> Todos </NuxtLink>
+    </footer>
 </template>
 
 <style scoped>
