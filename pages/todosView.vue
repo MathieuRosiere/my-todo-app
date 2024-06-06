@@ -26,7 +26,7 @@ const submitHandler = () => {
                 name="newTodo"
                 placeholder="Ajouter une todo"
                 required
-            >
+            />
             <button>
                 <ClientOnly><font-awesome-icon :icon="['fas', 'plus']" /></ClientOnly>
             </button>
