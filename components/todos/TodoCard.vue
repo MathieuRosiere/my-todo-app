@@ -42,7 +42,7 @@ const editHandler = () => {
 <template>
     <div class="card">
         <div class="input-span-wrapper" @click="test">
-            <input v-if="editModeIsActive" v-model="editInput" class="edit-input" type="text" >
+            <input v-if="editModeIsActive" v-model="editInput" class="edit-input" type="text" />
             <span v-else>{{ props.todo }}</span>
         </div>
         <div class="card-icons">
