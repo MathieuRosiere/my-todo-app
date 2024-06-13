@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
         const userId = 3;
 
         const deleteTodo = await Todo.destroy({ where: { id: todoId, UserId: userId } });
-        console.log(deleteTodo);
+
         if (deleteTodo === 0) {
             throw new Error(`No todo found with id "${todoId}" and userId "${userId}"`);
         } else {
