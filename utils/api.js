@@ -7,7 +7,7 @@ export const api = {
             throw new Error(result.error);
         }
 
-        return { ...result.data };
+        return result.data;
     },
 
     get(endpoint, options) {
@@ -15,11 +15,11 @@ export const api = {
     },
 
     post(endpoint, body, options) {
-        return this.call(endpoint, { ...options, method: "POST" }, body);
+        return this.call(endpoint, { ...options, method: "POST", body });
     },
 
     patch(endpoint, body, options) {
-        return this.call(endpoint, { ...options, method: "PATCH" }, body);
+        return this.call(endpoint, { ...options, method: "PATCH", body });
     },
 
     delete(endpoint, options) {

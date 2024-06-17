@@ -13,7 +13,7 @@ const submitHandler = () => {
 
 const { data } = useQuery({
     queryKey: ["todos"],
-    queryFn: async () => {
+    queryFn: () => {
         return api.get("todos");
     },
 });
