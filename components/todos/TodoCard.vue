@@ -7,8 +7,7 @@ const userStore = useUserStore();
 const { todos } = storeToRefs(userStore);
 
 const props = defineProps({
-    todo: { type: String },
-    index: { type: Number },
+    todo: { type: Object },
 });
 const isActive = ref(false);
 const editInput = ref(props.todo);
@@ -43,7 +42,7 @@ const editHandler = () => {
     <div class="card">
         <div class="input-span-wrapper" @click="test">
             <input v-if="editModeIsActive" v-model="editInput" class="edit-input" type="text" />
-            <span v-else>{{ props.todo }}</span>
+            <span v-else>{{ props.todo.title }}</span>
         </div>
         <div class="card-icons">
             <ClientOnly>

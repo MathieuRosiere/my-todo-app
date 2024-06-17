@@ -4,7 +4,7 @@ const props = defineProps({
 });
 </script>
 <template>
-    <div>{{ props.user }}</div>
+    <div>{{ props.user.id }}</div>
 </template>
 
 <style></style>

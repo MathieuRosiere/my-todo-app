@@ -25,7 +25,7 @@ export default defineEventHandler(async () => {
                 todoArray.push(outputResult.data);
             }
         }
-        return response.succes(todoArray);
+        return response.success(todoArray);
     } catch (error) {
         return response.error(error.message);
     }
