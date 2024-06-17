@@ -1,11 +1,8 @@
 <script setup>
 import { ref } from "vue";
-import { storeToRefs } from "pinia";
-import { useUserStore } from "../stores/userStore";
-import TodoCard from "../components/todos/TodoCard.vue";
-
-const userStore = useUserStore();
-const { todos } = storeToRefs(userStore);
+import { useQuery } from "@tanstack/vue-query";
+import TodoCard from "@/components/todos/TodoCard.vue";
+import { api } from "@/utils/api";
 
 const newTodo = ref("");
 
@@ -13,6 +10,13 @@ const submitHandler = () => {
     console.log("todo submitted");
     newTodo.value = "";
 };
+
+const { data } = useQuery({
+    queryKey: ["todos"],
+    queryFn: () => {
+        return api.get("todos");
+    },
+});
 </script>
 
 <template>
@@ -31,8 +35,9 @@ const submitHandler = () => {
                 <ClientOnly><font-awesome-icon :icon="['fas', 'plus']" /></ClientOnly>
             </button>
         </form>
-        <span class="count">À faire - {{ todos.length }} </span>
-        <TodoCard v-for="(todo, index) in todos" :key="index" :todo="todo" :index="index" />
+        <!-- TODO : Afficher le nombre de todo -->
+        <span class="count">À faire - </span>
+        <TodoCard v-for="todo in data" :key="todo.id" :todo="todo" />
     </div>
 </template>
 
