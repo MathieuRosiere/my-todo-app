@@ -7,21 +7,6 @@ export const useUserStore = defineStore("userStore", () => {
         username: "John",
         email: "john@test.com",
     });
-    const todos = ref([
-        "learn CSS",
-        "learn Javascript",
-        "learn HTML",
-        "destroy Tailwind",
-        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-    ]);
 
-    return { user, todos };
+    return { user };
 });
