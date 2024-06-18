@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { useQuery } from "@tanstack/vue-query";
 import TodoCard from "@/components/todos/TodoCard.vue";
 import { api } from "@/utils/api";
@@ -16,6 +16,22 @@ const { data } = useQuery({
     queryFn: () => {
         return api.get("todos");
     },
+});
+
+const sortTodosByStatus = computed(() => {
+    const todosCompleted = [];
+    const todosNotCompleted = [];
+    if (data.value === undefined) {
+        return { todosCompleted, todosNotCompleted };
+    }
+    for (const todo of data.value) {
+        if (todo.completed === true) {
+            todosCompleted.push(todo);
+        } else if (todo.completed === false) {
+            todosNotCompleted.push(todo);
+        }
+    }
+    return { todosCompleted, todosNotCompleted };
 });
 </script>
 
@@ -35,9 +51,10 @@ const { data } = useQuery({
                 <ClientOnly><font-awesome-icon :icon="['fas', 'plus']" /></ClientOnly>
             </button>
         </form>
-        <!-- TODO : Afficher le nombre de todo -->
-        <span class="count">À faire - </span>
-        <TodoCard v-for="todo in data" :key="todo.id" :todo="todo" />
+        <span class="count">À faire - {{ sortTodosByStatus.todosNotCompleted.length }} </span>
+        <TodoCard v-for="todo in sortTodosByStatus.todosNotCompleted" :key="todo.id" :todo="todo" />
+        <span class="count">Terminées - {{ sortTodosByStatus.todosCompleted.length }}</span>
+        <TodoCard v-for="todo in sortTodosByStatus.todosCompleted" :key="todo.id" :todo="todo" />
     </div>
 </template>
 
