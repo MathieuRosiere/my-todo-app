@@ -1,15 +1,15 @@
 <script setup>
 import { computed, ref } from "vue";
-import { useQuery } from "@tanstack/vue-query";
+import { useMutation, useQuery } from "@tanstack/vue-query";
 import TodoCard from "@/components/todos/TodoCard.vue";
 import { api } from "@/utils/api";
 
 const newTodo = ref("");
 
-const submitHandler = () => {
-    console.log("todo submitted");
-    newTodo.value = "";
-};
+// const submitHandler = () => {
+//     console.log("todo submitted");
+//     newTodo.value = "";
+// };
 
 const { data } = useQuery({
     queryKey: ["todos"],
@@ -17,6 +17,16 @@ const { data } = useQuery({
         return api.get("todos");
     },
 });
+
+const { mutate } = useMutation({
+    mutationFn: (newTodo) => {
+        return api.post("todos", JSON.stringify(newTodo));
+    },
+});
+
+function addTodo() {
+    mutate({ title: "mutate todo", userId: 1 });
+}
 
 const sortTodosByStatus = computed(() => {
     const todosCompleted = [];
@@ -37,7 +47,7 @@ const sortTodosByStatus = computed(() => {
 
 <template>
     <div class="container">
-        <form class="add-form" action="#" @submit.prevent="submitHandler">
+        <form class="add-form" action="#" @submit.prevent="addTodo">
             <input
                 id="newTodo"
                 v-model="newTodo"

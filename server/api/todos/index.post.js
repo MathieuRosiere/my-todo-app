@@ -4,7 +4,12 @@ import { Todo } from "@/server/models/todo";
 import { response } from "@/utils/response";
 // eslint-disable-next-line no-undef
 export default defineEventHandler(async (event) => {
+<<<<<<< HEAD
     const result = await readValidatedBody(event, (body) => todoCreateInput.safeParse(JSON.parse(body)));
+=======
+    const result = await readValidatedBody(event, (body) => todoCreateInput.safeParse(body));
+
+>>>>>>> 143a60f (feat(mutation): add-todo mutation)
     if (result.success === false) {
         return response.error(result.error.issues);
     }
