@@ -6,10 +6,9 @@ import { api } from "@/utils/api";
 
 const newTodo = ref("");
 
-// const submitHandler = () => {
-//     console.log("todo submitted");
-//     newTodo.value = "";
-// };
+const submitHandler = () => {
+    createTodo({ title: newTodo.value, userId: 1 });
+};
 
 const { data } = useQuery({
     queryKey: ["todos"],
@@ -18,15 +17,11 @@ const { data } = useQuery({
     },
 });
 
-const { mutate } = useMutation({
+const { mutate: createTodo } = useMutation({
     mutationFn: (newTodo) => {
         return api.post("todos", JSON.stringify(newTodo));
     },
 });
-
-function addTodo() {
-    mutate({ title: "mutate todo", userId: 1 });
-}
 
 const sortTodosByStatus = computed(() => {
     const todosCompleted = [];
@@ -47,7 +42,7 @@ const sortTodosByStatus = computed(() => {
 
 <template>
     <div class="container">
-        <form class="add-form" action="#" @submit.prevent="addTodo">
+        <form class="add-form" action="#" @submit.prevent="submitHandler">
             <input
                 id="newTodo"
                 v-model="newTodo"
