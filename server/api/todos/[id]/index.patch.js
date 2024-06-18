@@ -8,7 +8,7 @@ export default defineEventHandler(async (event) => {
     // eslint-disable-next-line no-undef
     const todoId = getRouterParam(event, "id");
 
-    const result = await readValidatedBody(event, (body) => todoUpdate.safeParse(body));
+    const result = await readValidatedBody(event, (body) => todoUpdate.safeParse(JSON.parse(body)));
 
     if (result.success === false) {
         return response.error(result.error.issues);
