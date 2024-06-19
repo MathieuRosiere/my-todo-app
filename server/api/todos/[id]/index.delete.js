@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
     const todoId = getRouterParam(event, "id");
 
     try {
-        const userId = 3;
+        const userId = 1;
 
         const deleteTodo = await Todo.destroy({ where: { id: todoId, UserId: userId } });
 

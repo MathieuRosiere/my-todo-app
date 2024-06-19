@@ -1,7 +1,11 @@
 <script setup>
 import { storeToRefs } from "pinia";
+import { useMutation, useQueryClient } from "@tanstack/vue-query";
 import { useUserStore } from "../../stores/userStore";
 import { ref } from "vue";
+import { api } from "@/utils/api";
+
+const queryClient = useQueryClient();
 
 const userStore = useUserStore();
 const { todos } = storeToRefs(userStore);
@@ -20,9 +24,9 @@ const checkTodo = (todo) => {
     console.log(`Todo '${todo}' checked`);
 };
 
-const deleteTodo = (todo) => {
+const deleteTodoHandler = () => {
     if (window.confirm("Supprimer la todo ?")) {
-        console.log(`Todo '${todo}' deleted`);
+        deleteTodo();
     }
 };
 
@@ -36,6 +40,17 @@ const editHandler = () => {
         editMode.value = !editMode.value;
     }
 };
+
+const { mutate: deleteTodo } = useMutation({
+    mutationFn: () => {
+        return api.delete(`todos/${props.todo.id}`);
+    },
+    onSuccess: () => {
+        const existingTodos = queryClient.getQueryData(["todos"]);
+        const filteredTodos = existingTodos.filter((todo) => todo.id !== props.todo.id);
+        queryClient.setQueryData(["todos"], filteredTodos);
+    },
+});
 </script>
 
 <template>
@@ -56,7 +71,7 @@ const editHandler = () => {
                     @click="editHandler"
             /></ClientOnly>
             <ClientOnly>
-                <font-awesome-icon class="icons" :icon="['far', 'trash-can']" @click="deleteTodo(todo)" />
+                <font-awesome-icon class="icons" :icon="['far', 'trash-can']" @click="deleteTodoHandler" />
             </ClientOnly>
         </div>
     </div>
