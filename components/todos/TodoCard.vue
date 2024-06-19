@@ -9,14 +9,15 @@ const props = defineProps({
     todo: { type: Object },
 });
 const isActive = ref(false);
+const isCompleted = ref(props.todo.completed);
 const editInput = ref(props.todo.title);
 const editMode = ref(false);
 const editModeIsActive = computed(() => {
     return editMode.value;
 });
 0;
-const checkTodo = (todo) => {
-    console.log(`Todo '${todo}' checked`);
+const checkTodoHandler = () => {
+    updateTodoStatus({ title: props.todo.title, completed: !props.todo.completed, userId: 1 });
 };
 
 const deleteTodoHandler = () => {
@@ -51,6 +52,22 @@ const { mutate: updateTodo } = useMutation({
     },
 });
 
+const { mutate: updateTodoStatus } = useMutation({
+    mutationFn: (updatedTodo) => {
+        return api.patch(`todos/${props.todo.id}`, JSON.stringify(updatedTodo));
+    },
+    onSuccess: (updatedTodo) => {
+        const existingTodos = queryClient.getQueryData(["todos"]);
+        const modifiedTodos = existingTodos.map((todo) => {
+            if (todo.id === updatedTodo.id) {
+                return { ...todo, completed: updatedTodo.completed };
+            }
+            return todo;
+        });
+        queryClient.setQueryData(["todos"], modifiedTodos);
+    },
+});
+
 const { mutate: deleteTodo } = useMutation({
     mutationFn: () => {
         return api.delete(`todos/${props.todo.id}`);
@@ -67,19 +84,28 @@ const { mutate: deleteTodo } = useMutation({
     <div class="card">
         <div class="input-span-wrapper" @click="test">
             <input v-if="editModeIsActive" v-model="editInput" class="edit-input" type="text" />
-            <span v-else>{{ props.todo.title }}</span>
+            <span v-else :class="{ status: isCompleted }">{{ props.todo.title }}</span>
         </div>
         <div class="card-icons">
             <ClientOnly>
-                <font-awesome-icon class="icons" :icon="['fas', 'check']" @click="checkTodo(todo)" />
+                <font-awesome-icon
+                    v-if="!isCompleted"
+                    class="icons"
+                    :icon="['fas', 'check']"
+                    @click="checkTodoHandler"
+                />
+
+                <font-awesome-icon v-else class="icons" :icon="['far', 'circle-xmark']" @click="checkTodoHandler" />
             </ClientOnly>
             <ClientOnly
                 ><font-awesome-icon
+                    v-if="!isCompleted"
                     class="icons"
                     :class="{ active: isActive }"
                     :icon="['fas', 'pen-to-square']"
                     @click="editHandler"
-            /></ClientOnly>
+                />
+            </ClientOnly>
             <ClientOnly>
                 <font-awesome-icon class="icons" :icon="['far', 'trash-can']" @click="deleteTodoHandler" />
             </ClientOnly>
@@ -107,13 +133,13 @@ const { mutate: deleteTodo } = useMutation({
         }
     }
     > div.card-icons {
-        flex: 0.25;
+        flex: 0.2;
     }
 }
 
 .card-icons {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     > .icons {
         height: 1.2rem;
         transition: 350ms ease;
@@ -149,5 +175,10 @@ const { mutate: deleteTodo } = useMutation({
 .active {
     scale: 1.4;
     color: var(--secondary-font-color);
+}
+
+.status {
+    color: var(--secondary-font-color);
+    text-decoration-line: line-through;
 }
 </style>
