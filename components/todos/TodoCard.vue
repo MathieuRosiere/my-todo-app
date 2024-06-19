@@ -1,25 +1,20 @@
 <script setup>
-import { storeToRefs } from "pinia";
 import { useMutation, useQueryClient } from "@tanstack/vue-query";
-import { useUserStore } from "../../stores/userStore";
 import { ref } from "vue";
 import { api } from "@/utils/api";
 
 const queryClient = useQueryClient();
 
-const userStore = useUserStore();
-const { todos } = storeToRefs(userStore);
-
 const props = defineProps({
     todo: { type: Object },
 });
 const isActive = ref(false);
-const editInput = ref(props.todo);
+const editInput = ref(props.todo.title);
 const editMode = ref(false);
 const editModeIsActive = computed(() => {
     return editMode.value;
 });
-
+0;
 const checkTodo = (todo) => {
     console.log(`Todo '${todo}' checked`);
 };
@@ -35,11 +30,26 @@ const editHandler = () => {
         editMode.value = !editMode.value;
         isActive.value = !isActive.value;
     } else if (editMode.value === true) {
-        todos.value[props.index] = editInput.value;
+        updateTodo({ title: editInput.value, completed: props.todo.completed, userId: 1 });
         isActive.value = !isActive.value;
         editMode.value = !editMode.value;
     }
 };
+const { mutate: updateTodo } = useMutation({
+    mutationFn: (updatedTodo) => {
+        return api.patch(`todos/${props.todo.id}`, JSON.stringify(updatedTodo));
+    },
+    onSuccess: (updatedTodo) => {
+        const existingTodos = queryClient.getQueryData(["todos"]);
+        const modifiedTodos = existingTodos.map((todo) => {
+            if (todo.id === updatedTodo.id) {
+                return { ...todo, title: updatedTodo.title };
+            }
+            return todo;
+        });
+        queryClient.setQueryData(["todos"], modifiedTodos);
+    },
+});
 
 const { mutate: deleteTodo } = useMutation({
     mutationFn: () => {
