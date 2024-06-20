@@ -5,13 +5,19 @@ export const todoCreateInput = z.object({
     userId: z.number().int(),
 });
 
-export const todoOutput = z
+export const todoSchema = z
     .object({
+        /** @deprecated Ne plus utiliser */
         id: z.number().int(),
         title: z.string(),
         completed: z.boolean(),
+        date: z.date(),
     })
     .strict();
+
+export const todoOutput = todoSchema;
+
+export const todoResponse = z.array(todoSchema);
 
 export const todoUpdate = z
     .object({

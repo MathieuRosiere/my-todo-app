@@ -3,7 +3,8 @@ import { User } from "./user";
 
 User.hasMany(Todo, {
     onDelete: "CASCADE",
-    foreignKey: { allowNull: false },
+    foreignKey: { allowNull: false, name: "userId" },
+    as: "todos",
 });
 
 Todo.belongsTo(User);

@@ -1,5 +1,5 @@
-import { Todo } from "@/server/models/todo";
-import { todoUpdate, todoOutput } from "@/schemas/todo";
+import { Todo } from "~/server/models/todo";
+import { todoUpdate, todoOutput } from "~/schemas/todo";
 import { readValidatedBody } from "h3";
 import { response } from "@/utils/response";
 

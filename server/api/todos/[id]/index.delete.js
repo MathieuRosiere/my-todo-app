@@ -1,4 +1,4 @@
-import { Todo } from "@/server/models/todo";
+import { Todo } from "~/server/models/todo";
 import { response } from "@/utils/response";
 
 // eslint-disable-next-line no-undef

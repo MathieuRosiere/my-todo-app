@@ -1,6 +1,6 @@
-import { sequelize } from "@/server/libs/sequelize";
-import * as models from "@/server/models";
-// eslint-disable-next-line no-undef
+import { sequelize } from "~/server/libs/sequelize";
+import * as models from "~/server/models";
+ 
 export default defineEventHandler(async () => {
     try {
         console.log(models);

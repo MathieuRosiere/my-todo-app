@@ -1,16 +1,24 @@
-import { Todo } from "@/server/models/todo";
-import { todoOutput } from "@/schemas/todo";
+import { Todo } from "~/server/models/todo";
+import type { todoResponse } from "~/schemas/todo";
+import { todoOutput } from "~/schemas/todo";
 import { response } from "@/utils/response";
+import type { ResponseError, ResponseSuccess } from "@/utils/response";
+import type { z } from "zod";
 
-// eslint-disable-next-line no-undef
-export default defineEventHandler(async () => {
+type TodoOutput = z.infer<typeof todoResponse>;
+
+type Response = ResponseError | ResponseSuccess<TodoOutput>;
+
+ 
+export default defineEventHandler<Promise<Response>>(async () => {
     try {
         const todos = await Todo.findAll({
             where: {
+                // FIXME: Find how to type a foreign key with Sequelize
                 userId: 1,
             },
         });
-        const todoArray = [];
+        const todoArray: TodoOutput = [];
         for (const item of todos) {
             const todo = {
                 id: item.id,
