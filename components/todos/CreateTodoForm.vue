@@ -9,9 +9,13 @@ const submitHandler = () => {
     createTodo({ title: newTodo.value, userId: 1 });
     newTodo.value = "";
 };
+function sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
-const { mutate: createTodo } = useMutation({
-    mutationFn: (newTodo) => {
+const { isPending, mutate: createTodo } = useMutation({
+    mutationFn: async (newTodo) => {
+        await sleep(1000);
         return api.post("todos", JSON.stringify(newTodo));
     },
     onSuccess: (newTodo) => {
@@ -32,13 +36,23 @@ const { mutate: createTodo } = useMutation({
             placeholder="Ajouter une todo"
             required
         />
-        <button>
-            <ClientOnly><font-awesome-icon :icon="['fas', 'plus']" /></ClientOnly>
+        <font-awesome-icon v-if="isPending" class="loader" :icon="['fas', 'spinner']" />
+        <button v-else>
+            <font-awesome-icon :icon="['fas', 'plus']" />
         </button>
     </form>
 </template>
 
 <style scoped>
+@keyframes rotate {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 .add-form {
     position: sticky;
     background-color: var(--main-bg);
@@ -66,5 +80,10 @@ const { mutate: createTodo } = useMutation({
     > button:hover {
         cursor: pointer;
     }
+}
+
+.loader {
+    height: 2rem;
+    animation: rotate 1s linear infinite;
 }
 </style>
