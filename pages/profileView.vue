@@ -1,18 +1,12 @@
 <script setup>
-import { storeToRefs } from "pinia";
 import { ref } from "vue";
-import { useUserStore } from "../stores/userStore";
-import UserProfile from "../components/UserProfile.vue";
 import MyButton from "../components/MyButton.vue";
 
-const userStore = useUserStore();
-const { user } = storeToRefs(userStore);
 const switchForm = ref("");
 </script>
 
 <template>
-    <UserProfile v-if="user" />
-    <div v-else class="wrapper">
+    <div class="wrapper">
         <div v-if="switchForm === ''" class="select-form">
             <span>Pas encore de compte ?</span>
             <MyButton content="Inscivez-vous" @emit-event="switchForm = 'signup'" />
