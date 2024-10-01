@@ -84,7 +84,7 @@ const { mutate: deleteTodo } = useMutation({
     <div class="card">
         <div class="input-span-wrapper" @click="test">
             <input v-if="editModeIsActive" v-model="editInput" class="edit-input" type="text" />
-            <span v-else :class="{ status: isCompleted }">{{ props.todo.title }}</span>
+            <span v-else :title="props.todo.title" :class="{ status: isCompleted }">{{ props.todo.title }}</span>
         </div>
         <div class="card-icons">
             <ClientOnly>
