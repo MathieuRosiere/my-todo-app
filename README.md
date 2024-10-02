@@ -40,3 +40,21 @@ INSERT INTO Users (id, username, password, email, createdAt, updatedAt)
 ```
 
 (You can put other values but **keep the id value at 1.**)
+
+## Development
+
+### Technologies
+
+-   [Nuxt.js](https://nuxt.com/) : Framework
+-   [Tanstack Query](https://tanstack.com/query/latest/docs/framework/vue/overview) : caching
+-   [Sequelize](https://sequelize.org/) : ORM
+-   [MySQL](https://dev.mysql.com/downloads/installer/) : Database
+-   [Zod](https://zod.dev/) : schema validation
+
+### Tooling
+
+-   [Husky](https://typicode.github.io/husky/) : to use git hooks.
+-   [Prettier](https://prettier.io/) : code formatter
+-   [ESlint](https://eslint.nuxt.com/) : code linter
+-   [EditorConfig](https://editorconfig.org/) : define coding styles
+-   [Lint-staged](https://github.com/lint-staged/lint-staged) : simplify scripts execution with git hooks.
